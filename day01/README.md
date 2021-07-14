@@ -45,3 +45,67 @@ HTML，CSS，JavaScript，简单的命令行操作，具有服务器开发经验
 - EcmaScript 6：它只是一种新的语法，浏览器里面也可以用
 - 。。。。。。
 - 学习NodeJS不仅可以帮助打开服务的黑盒子，还可以帮助学习以后的前端高级内容，比如Vue.js，React，Angular
+
+# 2、NodeJS起步
+
+## 2.1、安装Node环境
+
+查看当前Node环境的版本号：`node --version`
+
+下载：https://nodejs.org/en/
+
+确认Node环境是否安装成功：`node --version`
+
+## 2.2、Hello World
+
+1、创建编写JavaScript脚本文件
+
+```javascript
+var foo = 'foo'
+console.log(foo)
+```
+
+2、打开终端，定位到脚本文件所属目录
+
+3、输入`node 文件名` 执行对应的文件
+
+注意：文件名不要以`node.js`来命名，而且最好也不要使用中文。
+
+Node中没有DOM和BOM：
+
+```javascript
+// 在node中，采用CemaScript进行编码
+// 没有BOM和DOM
+// 和浏览器中的JS不一样
+console.log(window)
+console.log(document)
+
+/*
+* ReferenceError: window is not defined
+    at Object.<anonymous> (/Users/admin/Documents/GitMe/NodeNote/day01/src/01-没有bom和dom.js:1:13)
+    at Module._compile (internal/modules/cjs/loader.js:1063:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1092:10)
+    at Module.load (internal/modules/cjs/loader.js:928:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:769:14)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:72:12)
+    at internal/main/run_main_module.js:17:47
+*/
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
