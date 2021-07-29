@@ -74,7 +74,7 @@ console.log(foo)
 Node中没有DOM和BOM：
 
 ```javascript
-// 在node中，采用CemaScript进行编码
+// 在node中，采用EcmaScript进行编码
 // 没有BOM和DOM
 // 和浏览器中的JS不一样
 console.log(window)
@@ -90,6 +90,107 @@ console.log(document)
     at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:72:12)
     at internal/main/run_main_module.js:17:47
 */
+
+```
+
+## 2.3、读取文件
+
+浏览器中的`JavaScript`是没有文件操作的能力的，但是Node中的`JavaScript`具有文件操作的能力。
+
+`fs`是`file-system`的简写，就是文件系统的意思，在`Node`中如果想要进行文件操作，就必须引入`fs`这个核心模块，在`fs`这个核心模块中，就提供了所有的文件操作相关的API，例如：`fs.readFile`就是用来读取文件的。
+
+```javascript
+// 1. 使用require方法加载fs核心模块
+var fs = require('fs')
+
+// 2. 读取文件
+//    第一个参数就是要读取的文件路径
+//    第二个参数是一个回调函数
+//
+//        成功
+//          data 数据
+//          error null
+//        失败
+//          data undefined
+//          error 错误对象
+fs.readFile('./data/a1.txt', function (error, data) {
+    // <Buffer 68 65 6c 6c 6f 20 6e 6f 64 65 6a 73 0d 0a>
+    // 文件中存储的其实都是二进制数据
+    // 这里为什么看到的不是0和1呢？原因是二进制转为16进制了
+    // 但是无论是二进制还是16进制，人类都不认识
+    // 所以我们可以通过toString方法把其转为我们能认识的字符
+    console.log('data: ', data)
+    console.log('error: ', error)
+
+    // 在这里就可以通过判断error来确认是否有错误发生，友好的处理错误
+    if (error) {
+        console.log('读取文件失败了')
+    } else {
+        console.log(data.toString())
+    }
+})
+
+```
+
+## 2.4、写文件
+
+```javascript
+var fs = require('fs')
+
+// 第一个参数：文件路径
+// 第二个参数：文件内容
+// 第三个参数：回调函数
+//    error
+//    成功：
+//      文件写入成功
+//      error 是 null
+//    失败：
+//      文件写入失败
+//      error 就是错误对象
+fs.writeFile('./data/你好.md', '大家好，给大家介绍一下，我是Node.js', function (error) {
+    // 这样写不够友好
+    // console.log('文件写入成功')
+    // console.log(error)
+
+    // 这样可以友好的处理错误
+    if (error) {
+        console.log('写入失败')
+    } else {
+        console.log('写入成功了')
+    }
+})
+
+```
+
+## 2.5、创建一个服务器
+
+接下来，我们要干一件使用Node很有成就感的一件事儿，你可以使用Node非常轻松的构建一个Web服务器，在Node中专门提供了一个核心模块：http，http这个模块的职责就是帮你创建编写服务器的。
+
+```javascript
+// 1. 加载 http 核心模块
+var http = require('http')
+
+// 2. 使用 http.createServer() 方法创建一个 Web 服务器
+//    返回一个 Server 实例
+var server = http.createServer()
+
+// 3. 服务器要干嘛？
+//    提供服务：对 数据的服务
+//    发请求
+//    接收请求
+//    处理请求
+//    给个反馈（发送响应）
+
+//    注册 request 请求事件
+//    当客户端请求过来，就会自动触发服务器的 request 请求事件，然后执行第二个参数：回调处理函数
+server.on('request', function () {
+  console.log('收到客户端的请求了')
+})
+
+// 4. 绑定端口号，启动服务器
+server.listen(3000, function () {
+  console.log('服务器启动成功了，可以通过 http://127.0.0.1:3000/ 来进行访问')
+})
 
 ```
 
